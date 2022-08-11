@@ -199,16 +199,18 @@ function playSongList() {
   for (let j = 0; j < allLiTag.length; j++) {
     let audioTag = allLiTag[j].querySelector(".audio-duration");
     allLiTag[j].setAttribute("onclick", "liClicked(this)");
-    //first add playing class to liTag is clicked
-    if (allLiTag[j].getAttribute("li-index") == musicIndex) {
-      allLiTag[j].classList.add("playing");
-      audioTag.innerText = "Playing";
-    } else if (allLiTag[j].classList.contains("playing")) {
+    //then when click another li, this function will remove the class playing from the last li
+
+    if (allLiTag[j].classList.contains("playing")) {
       allLiTag[j].classList.remove("playing");
       let audioDuration = audioTag.getAttribute("t-duration");
       audioTag.innerText = audioDuration;
     }
-    //then when click another li, this function will remove the class playing from the last li
+    //first add playing class to liTag is clicked
+    if (allLiTag[j].getAttribute("li-index") == musicIndex) {
+      allLiTag[j].classList.add("playing");
+      audioTag.innerText = "Playing";
+    }
   }
 }
 
