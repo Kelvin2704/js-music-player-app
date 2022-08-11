@@ -215,7 +215,6 @@ body {
       max-height: 260px;
       overflow: auto;
       &::-webkit-scrollbar {
-        display: none;
         width: 0px;
       }
       li {
