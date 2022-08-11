@@ -217,6 +217,7 @@ body {
   overflow: auto;
 }
 .wrapper .music-list ul::-webkit-scrollbar {
+  display: none;
   width: 0px;
 }
 .wrapper .music-list ul li {
