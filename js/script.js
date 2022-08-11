@@ -20,6 +20,29 @@ console.log("musicIndex", musicIndex);
 window.addEventListener("load", () => {
   loadMusic(musicIndex);
   playSongList();
+  mainAudio.addEventListener("timeupdate", (e) => {
+    const currentTime = e.target.currentTime; // getting playing song current time
+    const duration = e.target.duration; //getting total playing song time;
+    let progressWidth = (currentTime / duration) * 100;
+    //   console.log(progressWidth);
+    progressBar.style.width = `${progressWidth}%`;
+  
+    let musicCurrentTime = wrapper.querySelector(".current-time"),
+      musicDuration = wrapper.querySelector(".max-duration");
+  
+    mainAudio.addEventListener("loadeddata", () => {
+      let mainAudioDuration = mainAudio.duration;
+      let totalMin = Math.floor(mainAudioDuration / 60);
+      let totalSec = Math.floor(mainAudioDuration % 60);
+      totalSec < 10 ? (totalSec = `0${totalSec}`) : "";
+      musicDuration.innerText = `${totalMin}:${totalSec}`;
+    });
+  
+    let currentMin = Math.floor(currentTime / 60);
+    let currentSec = Math.floor(currentTime % 60);
+    currentSec < 10 ? (currentSec = `0${currentSec}`) : "";
+    musicCurrentTime.innerText = `${currentMin}:${currentSec}`;
+  });
 });
 
 function loadMusic(indexNumber) {
@@ -74,29 +97,7 @@ nextBtn.addEventListener("click", () => {
 });
 
 // update progress bar width according to music current time
-mainAudio.addEventListener("timeupdate", (e) => {
-  const currentTime = e.target.currentTime; // getting playing song current time
-  const duration = e.target.duration; //getting total playing song time;
-  let progressWidth = (currentTime / duration) * 100;
-  //   console.log(progressWidth);
-  progressBar.style.width = `${progressWidth}%`;
 
-  let musicCurrentTime = wrapper.querySelector(".current-time"),
-    musicDuration = wrapper.querySelector(".max-duration");
-
-  mainAudio.addEventListener("loadeddata", () => {
-    let mainAudioDuration = mainAudio.duration;
-    let totalMin = Math.floor(mainAudioDuration / 60);
-    let totalSec = Math.floor(mainAudioDuration % 60);
-    totalSec < 10 ? (totalSec = `0${totalSec}`) : "";
-    musicDuration.innerText = `${totalMin}:${totalSec}`;
-  });
-
-  let currentMin = Math.floor(currentTime / 60);
-  let currentSec = Math.floor(currentTime % 60);
-  currentSec < 10 ? (currentSec = `0${currentSec}`) : "";
-  musicCurrentTime.innerText = `${currentMin}:${currentSec}`;
-});
 
 //update playing song currentTime on according to the progress bar width
 progressArea.addEventListener("click", (e) => {
